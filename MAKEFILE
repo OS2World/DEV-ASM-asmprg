@@ -1,0 +1,15 @@
+# makefile for sample call 16 bit code from 32 bit code
+# (c) 1992, 1993 by Larry Morley
+
+os2asm.exe : os2asm.obj thunk16.obj stdlib20.obj
+   link386 /pm:vio /map os2asm+thunk16+stdlib20,,os2asm.map;
+
+os2asm.obj : os2asm.asm std20.inc stdmac20.inc
+   ml /Cp /Cx /Fl /Sa /c os2asm.asm
+
+thunk16.obj : thunk16.asm std20.inc stdmac20.inc
+   ml /Cp /Cx /Fl /Sa /D__$*__ /c $*.asm
+
+stdlib20.obj : stdlib20.asm std20.inc stdmac20.inc
+   ml /Cp /Cx /Fl /Sa /D__$*__ /c $*.asm
+
